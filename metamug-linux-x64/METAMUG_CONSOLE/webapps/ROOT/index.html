@@ -1,0 +1,110 @@
+<!--                                            
+                        
+ /##      /##             /##                                               
+| ###    /###            | ##                                               
+| ####  /####  /######  /######   /######  /######/####  /##   /##  /###### 
+| ## ##/## ## /##__  ##|_  ##_/  |____  ##| ##_  ##_  ##| ##  | ## /##__  ##
+| ##  ###| ##| ########  | ##     /#######| ## \ ## \ ##| ##  | ##| ##  \ ##
+| ##\  # | ##| ##_____/  | ## /##/##__  ##| ## | ## | ##| ##  | ##| ##  | ##
+| ## \/  | ##|  #######  |  ####/  #######| ## | ## | ##|  ######/|  #######
+|__/     |__/ \_______/   \___/  \_______/|__/ |__/ |__/ \______/  \____  ##
+                                                                   /##  \ ##
+                                                                  |  ######/
+                                                                   \______/                  
+
+-->
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Metamug|Console</title>
+        <link rel="stylesheet" href="/assets/vendor/css/vendor.min.css"/>
+        <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon"> 
+    </head>
+    <body>
+        <div id="area">
+        	<style type="text/css">
+        		.center-block {
+        		    display: block;
+        		    margin-left: auto;
+        		    margin-right: auto;
+        		 }
+        	</style>
+        	<div class="container">
+			  <div class="row" style="margin-top:20%">
+			    <div class="span4"></div>
+			    <div class="span4">
+			    	<a href="/console" style="outline:none" id="redirect-link">
+			    		<img class="center-block" src="https://metamug.com/super-hero-logo.png" title="Click to open console" />
+			    	</a>
+			    </div>
+			    </div>
+			  </div>
+			</div>
+        	
+        </div>
+        <footer style="bottom:0;position:fixed;text-align:center;width:100%">
+            Release Quickly. Iterate Frequently.
+        </footer>
+
+        <script type="text/javascript" src="https://d26z0jouibnunt.cloudfront.net/updates/config.js"></script>
+        <!-- <script type="text/javascript" src="/assets/vendor/js/pace.min.js"></script> -->
+        <!-- <script type="text/javascript" async src="/assets/bundle.js"></script>  -->
+
+        <script>
+	    	function isPositiveInteger(x) {
+				// http://stackoverflow.com/a/1019526/11236
+				return /^\d+$/.test(x);
+			}
+
+           function compareVersionNumbers(v1, v2){
+               var v1parts = v1.split('.');
+               var v2parts = v2.split('.');
+
+               // First, validate both numbers are true version numbers
+               function validateParts(parts) {
+                   for (var i = 0; i < parts.length; ++i) {
+                       if (!isPositiveInteger(parts[i])) {
+                           return false;
+                       }
+                   }
+                   return true;
+               }
+               if (!validateParts(v1parts) || !validateParts(v2parts)) {
+                   return NaN;
+               }
+
+               for (var i = 0; i < v1parts.length; ++i) {
+                   if (v2parts.length === i) {
+                       return 1;
+                   }
+
+                   if (v1parts[i] === v2parts[i]) {
+                       continue;
+                   }
+                   if (v1parts[i] > v2parts[i]) {
+                       return 1;
+                   }
+                   return -1;
+               }
+
+               if (v1parts.length != v2parts.length) {
+                   return -1;
+               }
+
+               return 0;
+           }
+
+           if(compareVersionNumbers(config.version, localStorage.currentApiVersion) > 0){
+
+           	  var redirectLink = document.getElementById('redirect-link')
+           	  redirectLink.setAttribute("href","/console/#/help");
+           	  redirectLink.querySelector("img").setAttribute("title","Update Available: "+ config.version)
+
+           }
+        </script>
+        
+    </body>
+</html>
